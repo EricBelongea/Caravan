@@ -28,7 +28,7 @@ namespace Caravan
                 entity.Property(p => p.Name);
                 entity.Property(p => p.Age);
                 entity.Property(p => p.Destination);
-                entity.HasOne(p => p.Wagon).WithMany(); // WithMany has an implicit reference back to Passanger. 
+                entity.HasOne(p => p.Wagon).WithMany(w => w.Passangers).HasForeignKey(p => p.WagonId);
             });
 
             modelBuilder.Entity<Wagon>(entity =>
@@ -37,13 +37,14 @@ namespace Caravan
                 entity.Property(w => w.Name);
                 entity.Property(w => w.Covered);
                 entity.Property(w => w.NumWheels);
-                entity.HasMany(w => w.Passangers).WithOne(); // WithOne has an implicit reference back to Wagon. 
+                entity.HasMany(w => w.Passangers).WithOne(p => p.Wagon); 
+                entity.HasOne(w => w.Caravan).WithMany(c => c.Wagons).HasForeignKey(w => w.CaravanId);
             });
 
             modelBuilder.Entity<Caravan>(entity =>
             {
                 entity.HasKey(c => c.CaravanId);
-                entity.HasMany(c => c.WagonList).WithOne();
+                entity.HasMany(c => c.Wagons).WithOne(w => w.Caravan);
             });
         }
     }

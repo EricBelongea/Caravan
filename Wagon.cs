@@ -14,5 +14,6 @@ namespace Caravan
         public bool Covered { get; set; }
         public ICollection<Passanger> Passangers { get; set; }
         public Caravan Caravan { get; set; }
+        public int CaravanId { get; set; }
     }
 }

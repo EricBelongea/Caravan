@@ -9,6 +9,6 @@ namespace Caravan
     public class Caravan
     {
         public int CaravanId { get; set; }
-        public ICollection<Wagon> WagonList { get; set; }
+        public ICollection<Wagon> Wagons { get; set; }
     }
 }
